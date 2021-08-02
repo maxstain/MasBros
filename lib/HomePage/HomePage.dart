@@ -9,6 +9,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late DateTime _dateTime;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,8 +18,21 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: () {
-              print("Pressed");
+            onPressed: () async {
+              final DateTime pickedDate = await showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return DatePickerDialog(
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.utc(2021),
+                    lastDate: DateTime.utc(3030),
+                  );
+                },
+              );
+              setState(() {
+                _dateTime = pickedDate.toLocal();
+              });
+              return print("$_dateTime");
             },
           ),
         ],
