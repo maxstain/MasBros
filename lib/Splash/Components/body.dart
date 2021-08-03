@@ -23,7 +23,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
     controller.forward().then((_) async {
       await Future.delayed(Duration(seconds: 1));
       controller.reverse().then((value) => {
-            Navigator.of(context).push(
+            Navigator.of(context).pushReplacement(
               MaterialPageRoute(
                 builder: (BuildContext context) => HomePage(),
               ),

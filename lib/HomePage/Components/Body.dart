@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_masterbros/Resources/DateTable.dart';
+import 'package:flutter_masterbros/Resources/db.dart';
 
 class Body extends StatefulWidget {
   Body({Key? key}) : super(key: key);
@@ -16,8 +16,17 @@ class _BodyState extends State<Body> {
             child: new ListView.builder(
                 itemCount: dates.length,
                 itemBuilder: (BuildContext context, int i) {
+                  String _title = dates[i].year.toString() +
+                      "-" +
+                      dates[i].month.toString() +
+                      "-" +
+                      dates[i].day.toString();
+                  String _subtitle = dates[i].hour.toString() +
+                      "-" +
+                      dates[i].minute.toString();
                   return new ListTile(
-                    title: Text(dates[i]),
+                    title: Text("Date: $_title"),
+                    subtitle: Text("Time: $_subtitle"),
                   );
                 }),
           )
