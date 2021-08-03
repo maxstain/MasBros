@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_masterbros/HomePage/Components/body.dart';
+import 'package:flutter_masterbros/HomePage/Components/Body.dart';
+import 'package:flutter_masterbros/Resources/DateTable.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -9,7 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late DateTime _dateTime;
+  late DateTime _dateTime = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +32,7 @@ class _HomePageState extends State<HomePage> {
               );
               setState(() {
                 _dateTime = pickedDate.toLocal();
+                dates.add(_dateTime.toString());
               });
               return print("$_dateTime");
             },
