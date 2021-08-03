@@ -16,15 +16,14 @@ class _BodyState extends State<Body> {
             child: new ListView.builder(
                 itemCount: dates.length,
                 itemBuilder: (BuildContext context, int i) {
-                  String _title = dates[i].year.toString() +
+                  String _title = dates[i].date.year.toString() +
                       "-" +
-                      dates[i].month.toString() +
+                      dates[i].date.month.toString() +
                       "-" +
-                      dates[i].day.toString();
-                  String _subtitle = dates[i].hour.toString() +
-                      "-" +
-                      dates[i].minute.toString();
+                      dates[i].date.day.toString();
+                  String _subtitle = dates[i].time!.format(context).toString();
                   return new ListTile(
+                    leading: Icon(Icons.calendar_today),
                     title: Text("Date: $_title"),
                     subtitle: Text("Time: $_subtitle"),
                   );
