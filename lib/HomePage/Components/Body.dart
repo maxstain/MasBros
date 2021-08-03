@@ -23,7 +23,10 @@ class _BodyState extends State<Body> {
                       dates[i].date.day.toString();
                   String _subtitle = dates[i].time!.format(context).toString();
                   return new ListTile(
-                    leading: Icon(Icons.calendar_today),
+                    leading: Icon(
+                      Icons.calendar_today,
+                      color: Colors.pink,
+                    ),
                     title: Text("Date: $_title"),
                     subtitle: Text("Time: $_subtitle"),
                   );
@@ -31,7 +34,14 @@ class _BodyState extends State<Body> {
           )
         : Container(
             child: Center(
-              child: Text("Empty"),
+              child: Text(
+                "No appointments yet, get to it",
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.pink,
+                ),
+              ),
             ),
           );
   }

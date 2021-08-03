@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late DateTime _dateTime = DateTime.now();
   late TimeOfDay? _timeOfDay = TimeOfDay.now();
-  late String _date = "";
+  late String _date;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
