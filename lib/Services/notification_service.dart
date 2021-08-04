@@ -1,14 +1,68 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 class NotificationService {
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
   static final NotificationService _notificationService =
       NotificationService._internal();
 
   factory NotificationService() {
     return _notificationService;
   }
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   NotificationService._internal();
+
+  Future<void> initNotification() async {
+    final AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('@drawable/ic_flutter_notification.png');
+    final IOSInitializationSettings initializationSettingsIOS =
+        IOSInitializationSettings(
+      requestSoundPermission: false,
+      requestBadgePermission: false,
+      requestAlertPermission: false,
+    );
+
+    final InitializationSettings initializationSettings =
+        InitializationSettings(
+            android: initializationSettingsAndroid,
+            iOS: initializationSettingsIOS);
+
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: selectNotification);
+  }
+
+  Future selectNotification(String? payload) async {
+    //Handle notification tapped logic here
+  }
+
+  Future<void> showNotification(
+      int id, String title, String body, int seconds) async {
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      id,
+      title,
+      body,
+      tz.TZDateTime.now(tz.local).add(Duration(seconds: seconds)),
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'main_channel',
+          'Main Channel',
+          'Main Channel Notifications',
+          importance: Importance.max,
+          priority: Priority.max,
+          icon: '@drawable/ic_flutter_notification.png',
+        ),
+        iOS: IOSNotificationDetails(
+          sound: 'default.wav',
+          presentAlert: true,
+          presentBadge: true,
+          presentSound: true,
+        ),
+      ),
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+      androidAllowWhileIdle: true,
+    );
+  }
 }

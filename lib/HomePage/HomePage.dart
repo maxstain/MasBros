@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masterbros/HomePage/Components/Body.dart';
 import 'package:flutter_masterbros/Resources/Date.dart';
 import 'package:flutter_masterbros/Resources/db.dart';
+import 'package:flutter_masterbros/Services/notification_service.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -40,6 +41,12 @@ class _HomePageState extends State<HomePage> {
                   _dateTime = pickedDate.toLocal();
                   _timeOfDay = pickedTime;
                   dates.add(new Date(_dateTime, _timeOfDay));
+                  NotificationService().showNotification(
+                    1,
+                    "New appointment added",
+                    "On: $_dateTime $_timeOfDay",
+                    5,
+                  );
                 },
               );
             },

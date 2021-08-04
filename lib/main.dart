@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_masterbros/Services/notification_service.dart';
 import 'package:flutter_masterbros/Splash/Splash.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService().initNotification();
   runApp(MyApp());
 }
 
