@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "398512982415",
+    "project_id": "masbros",
+    "storage_bucket": "masbros.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398512982415:android:d0c1b21958209669d523fa",
+        "android_client_info": {
+          "package_name": "com.masbros.masbros"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398512982415-qu8rdunbjm39rhb6es3qhn58pqe4h124.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPFUru3uMobxhcoyrFHL-JWESE7hA2jJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "398512982415-qu8rdunbjm39rhb6es3qhn58pqe4h124.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
