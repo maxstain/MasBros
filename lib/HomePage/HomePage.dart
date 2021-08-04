@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                         _dateTime.day.toString() +
                         " - " +
                         _timeOfDay!.format(context).toString(),
-                    5,
+                    1,
                   );
                 },
               );

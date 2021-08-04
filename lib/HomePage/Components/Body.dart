@@ -29,6 +29,34 @@ class _BodyState extends State<Body> {
                     ),
                     title: Text("Date: $_title"),
                     subtitle: Text("Time: $_subtitle"),
+                    trailing: IconButton(
+                      color: Colors.red,
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                        setState(
+                          () {
+                            dates.remove(dates[i]);
+                          },
+                        );
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("Item Removed"),
+                              content: Text("Item removed successfully"),
+                              actions: [
+                                TextButton(
+                                  child: Text("Close"),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                )
+                              ],
+                            );
+                          },
+                        );
+                      },
+                    ),
                   );
                 }),
           )
