@@ -53,7 +53,14 @@ class _HomePageState extends State<HomePage> {
                   NotificationService().showNotification(
                     1,
                     "New appointment added",
-                    "On: $_dateTime $_timeOfDay",
+                    "On: " +
+                        _dateTime.year.toString() +
+                        "-" +
+                        _dateTime.month.toString() +
+                        "-" +
+                        _dateTime.day.toString() +
+                        " - " +
+                        _timeOfDay!.format(context).toString(),
                     5,
                   );
                 },
