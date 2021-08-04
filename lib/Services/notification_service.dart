@@ -16,7 +16,7 @@ class NotificationService {
 
   Future<void> initNotification() async {
     final AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('@drawable/ic_flutter_notification.png');
+        AndroidInitializationSettings('ic_flutter_notification');
     final IOSInitializationSettings initializationSettingsIOS =
         IOSInitializationSettings(
       requestSoundPermission: false,
@@ -51,7 +51,7 @@ class NotificationService {
           'Main Channel Notifications',
           importance: Importance.max,
           priority: Priority.max,
-          icon: '@drawable/ic_flutter_notification.png',
+          icon: 'ic_flutter_notification',
         ),
         iOS: IOSNotificationDetails(
           sound: 'default.wav',
@@ -64,5 +64,9 @@ class NotificationService {
           UILocalNotificationDateInterpretation.absoluteTime,
       androidAllowWhileIdle: true,
     );
+  }
+
+  Future<void> cancelAllNotifications() async {
+    await flutterLocalNotificationsPlugin.cancelAll();
   }
 }

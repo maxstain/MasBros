@@ -3,6 +3,8 @@ import 'package:flutter_masterbros/HomePage/Components/Body.dart';
 import 'package:flutter_masterbros/Resources/Date.dart';
 import 'package:flutter_masterbros/Resources/db.dart';
 import 'package:flutter_masterbros/Services/notification_service.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -15,6 +17,13 @@ class _HomePageState extends State<HomePage> {
   late DateTime _dateTime = DateTime.now();
   late TimeOfDay? _timeOfDay = TimeOfDay.now();
   late String _date;
+
+  @override
+  void initState() {
+    super.initState();
+    tz.initializeTimeZones();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
