@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_masterbros/Resources/db.dart';
+import 'package:masbros/Resources/db.dart';
 
 class Body extends StatefulWidget {
   Body({Key? key}) : super(key: key);

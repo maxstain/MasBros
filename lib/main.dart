@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_masterbros/Services/notification_service.dart';
-import 'package:flutter_masterbros/Splash/Splash.dart';
+import 'package:masbros/Services/notification_service.dart';
+import 'package:masbros/Splash/Splash.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

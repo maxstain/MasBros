@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_masterbros/HomePage/Components/Body.dart';
-import 'package:flutter_masterbros/Resources/Date.dart';
-import 'package:flutter_masterbros/Resources/db.dart';
-import 'package:flutter_masterbros/Services/notification_service.dart';
+import 'package:masbros/HomePage/Components/Body.dart';
+import 'package:masbros/Resources/Date.dart';
+import 'package:masbros/Resources/db.dart';
+import 'package:masbros/Services/notification_service.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 

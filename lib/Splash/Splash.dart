@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_masterbros/Splash/Components/body.dart';
+import 'package:masbros/Splash/Components/body.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key? key}) : super(key: key);

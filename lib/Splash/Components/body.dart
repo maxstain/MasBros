@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_masterbros/HomePage/HomePage.dart';
+import 'package:masbros/HomePage/HomePage.dart';
 
 class Body extends StatefulWidget {
   Body({Key? key}) : super(key: key);
