@@ -45,9 +45,6 @@ class _HomePageState extends State<HomePage> {
               );
               final TimeOfDay? pickedTime = await showTimePicker(
                   context: context, initialTime: TimeOfDay.now());
-              DatabaseReference _testRef =
-                  FirebaseDatabase.instance.reference().child("test");
-              _testRef.set("${_dateTime.toString()}");
 
               setState(
                 () {
