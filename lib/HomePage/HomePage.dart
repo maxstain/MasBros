@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:masbros/HomePage/Components/Body.dart';
@@ -17,6 +18,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late DateTime _dateTime = DateTime.now();
   late TimeOfDay? _timeOfDay = TimeOfDay.now();
+  late Date date;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   void initState() {
@@ -26,6 +29,15 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    CollectionReference appointments =
+        FirebaseFirestore.instance.collection('appointments');
+    Future<void> addAppointment(Date date) {
+      return appointments
+          .add('${date.date} ${date.time}')
+          .then((value) => print("Appointment added"))
+          .catchError((error) => print("Failed to add appointment! $error"));
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("MasBros.Inc"),
@@ -50,7 +62,8 @@ class _HomePageState extends State<HomePage> {
                 () {
                   _dateTime = pickedDate.toLocal();
                   _timeOfDay = pickedTime;
-                  dates.add(new Date(_dateTime, _timeOfDay));
+                  date = new Date(_dateTime, _timeOfDay);
+                  dates.add(date);
                   NotificationService().showNotification(
                     1,
                     "New appointment added",
@@ -66,6 +79,7 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
               );
+              addAppointment(date);
             },
           ),
         ],
