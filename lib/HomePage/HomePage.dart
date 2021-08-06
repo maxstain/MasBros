@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:masbros/HomePage/Components/Body.dart';
 import 'package:masbros/Resources/Date.dart';
 import 'package:masbros/Resources/db.dart';
@@ -44,6 +45,10 @@ class _HomePageState extends State<HomePage> {
               );
               final TimeOfDay? pickedTime = await showTimePicker(
                   context: context, initialTime: TimeOfDay.now());
+              DatabaseReference _testRef =
+                  FirebaseDatabase.instance.reference().child("test");
+              _testRef.set("${_dateTime.toString()}");
+
               setState(
                 () {
                   _dateTime = pickedDate.toLocal();
