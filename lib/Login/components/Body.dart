@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:masbros/Services/Authentication_Service.dart';
+import 'package:provider/provider.dart';
 
 class Body extends StatefulWidget {
   Body({Key? key}) : super(key: key);
@@ -8,6 +10,9 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,28 +30,67 @@ class _BodyState extends State<Body> {
             ),
           ),
           Container(
-            padding: EdgeInsets.only(bottom: 20.0),
+            padding: EdgeInsets.only(bottom: 20.0, left: 8.0, right: 8.0),
             child: TextFormField(
+              controller: emailController,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
-                hintText: "Email",
+                labelText: "Email",
               ),
             ),
           ),
           Container(
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
             child: TextFormField(
+              controller: passwordController,
+              obscureText: true,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
-                hintText: "Password",
+                labelText: "Password",
               ),
             ),
           ),
-          TextButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.pink),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: 20.0,
+              horizontal: 8.0,
             ),
-            child: Text("Login"),
-            onPressed: () {},
+            child: TextButton(
+              style: ButtonStyle(
+                padding: MaterialStateProperty.all(
+                  EdgeInsets.symmetric(
+                    vertical: 20.0,
+                  ),
+                ),
+                backgroundColor: MaterialStateProperty.all(Colors.pink),
+              ),
+              child: Text(
+                "Login",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              onPressed: () {
+                context.read<AuthenticationService>().signIn(
+                      email: emailController.text.trim(),
+                      password: passwordController.text.trim(),
+                    );
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 12.0),
+            child: Row(
+              children: [
+                Text("Don't have an account yet ?"),
+                TextButton(
+                  child: Text("Sign In"),
+                  onPressed: () {},
+                ),
+              ],
+            ),
           ),
         ],
       ),

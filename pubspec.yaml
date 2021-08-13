@@ -35,6 +35,8 @@ dependencies:
   firebase_analytics: ^8.2.0
   firebase_database: ^7.1.2
 
+  provider: ^5.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
