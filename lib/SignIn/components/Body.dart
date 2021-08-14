@@ -12,6 +12,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  Text errMsg = Text("");
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,6 +29,7 @@ class _BodyState extends State<Body> {
               ),
             ),
           ),
+          errMsg,
           Container(
             padding: EdgeInsets.only(bottom: 20.0, left: 8.0, right: 8.0),
             child: TextFormField(
@@ -83,7 +85,27 @@ class _BodyState extends State<Body> {
                         builder: (context) => LoginPage(),
                       ),
                     );
+                  } else {
+                    setState(() {
+                      errMsg = new Text(
+                        "Wrong password!",
+                        style: TextStyle(
+                          color: Colors.red,
+                        ),
+                        textAlign: TextAlign.center,
+                      );
+                    });
                   }
+                } else {
+                  setState(() {
+                    errMsg = new Text(
+                      "Wrong Email!",
+                      style: TextStyle(
+                        color: Colors.red,
+                      ),
+                      textAlign: TextAlign.center,
+                    );
+                  });
                 }
               },
             ),

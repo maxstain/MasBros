@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
         FirebaseFirestore.instance.collection('appointments');
     Future<void> addAppointment(Date date) {
       return appointments
-          .add(date)
+          .add(date.date.toString() + ' - ' + date.time.toString())
           .then((value) => print("Appointment added"))
           .catchError((error) => print("Failed to add appointment! $error"));
     }

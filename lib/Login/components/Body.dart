@@ -14,6 +14,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  Text errMsg = Text("");
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,7 @@ class _BodyState extends State<Body> {
               ),
             ),
           ),
+          errMsg,
           Container(
             padding: EdgeInsets.only(bottom: 20.0, left: 8.0, right: 8.0),
             child: TextFormField(
@@ -82,12 +84,41 @@ class _BodyState extends State<Body> {
                     );
                 if (emailController.text == "firaschabchoub@hotmail.com") {
                   if (passwordController.text == "@Farrousa123") {
+                    setState(() {
+                      errMsg = new Text(
+                        "Logging In!",
+                        style: TextStyle(
+                          color: Colors.green,
+                        ),
+                        textAlign: TextAlign.center,
+                      );
+                    });
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
                         builder: (context) => HomePage(),
                       ),
                     );
+                  } else {
+                    setState(() {
+                      errMsg = new Text(
+                        "Wrong password!",
+                        style: TextStyle(
+                          color: Colors.red,
+                        ),
+                        textAlign: TextAlign.center,
+                      );
+                    });
                   }
+                } else {
+                  setState(() {
+                    errMsg = new Text(
+                      "Wrong Email!",
+                      style: TextStyle(
+                        color: Colors.red,
+                      ),
+                      textAlign: TextAlign.center,
+                    );
+                  });
                 }
               },
             ),
