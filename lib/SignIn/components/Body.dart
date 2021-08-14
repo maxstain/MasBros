@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:masbros/Login/LoginPage.dart';
 import 'package:masbros/Services/Authentication_Service.dart';
-import 'package:masbros/SignIn/SigninPage.dart';
-import 'package:provider/provider.dart';
 
 class Body extends StatefulWidget {
   Body({Key? key}) : super(key: key);
@@ -13,7 +12,6 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,7 +20,7 @@ class _BodyState extends State<Body> {
           Center(
             heightFactor: 4.0,
             child: Text(
-              "Login",
+              "Sign In",
               style: TextStyle(
                 fontSize: 36.0,
                 fontWeight: FontWeight.bold,
@@ -66,7 +64,7 @@ class _BodyState extends State<Body> {
                 backgroundColor: MaterialStateProperty.all(Colors.pink),
               ),
               child: Text(
-                "Login",
+                "Sign In",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,
@@ -74,10 +72,10 @@ class _BodyState extends State<Body> {
                 ),
               ),
               onPressed: () {
-                context.read<AuthenticationService>().signIn(
+                /* context.read<AuthenticationService>().signIn(
                       email: emailController.text.trim(),
                       password: passwordController.text.trim(),
-                    );
+                    ); */
               },
             ),
           ),
@@ -85,13 +83,13 @@ class _BodyState extends State<Body> {
             padding: EdgeInsets.symmetric(horizontal: 12.0),
             child: Row(
               children: [
-                Text("Don't have an account yet ?"),
+                Text("Already have an account ?"),
                 TextButton(
-                  child: Text("Sign In"),
+                  child: Text("Log In"),
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => SigninPage(),
+                        builder: (context) => LoginPage(),
                       ),
                     );
                   },

@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
         Provider<AuthenticationService>(
           create: (_) => AuthenticationService(FirebaseAuth.instance),
         ),
-        Provider<User>(create: (context) => context.read<User>()),
         StreamProvider(
           create: (context) =>
               context.read<AuthenticationService>().authStateChanges,
@@ -43,7 +42,7 @@ class MyApp extends StatelessWidget {
               print("You have an Error! ${snapshot.error.toString()}");
               return Text("Oops, Something went wrong!");
             } else if (snapshot.hasData) {
-              return AuthenticationWrapper();
+              return LoginPage();
             } else {
               return Center(
                 child: CircularProgressIndicator(),
