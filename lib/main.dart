@@ -9,8 +9,8 @@ import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
   await NotificationService().initNotification();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 

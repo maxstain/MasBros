@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:masbros/HomePage/HomePage.dart';
 import 'package:masbros/Services/Authentication_Service.dart';
 import 'package:masbros/SignIn/SigninPage.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +34,7 @@ class _BodyState extends State<Body> {
           Container(
             padding: EdgeInsets.only(bottom: 20.0, left: 8.0, right: 8.0),
             child: TextFormField(
+              keyboardType: TextInputType.emailAddress,
               controller: emailController,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
@@ -78,6 +80,15 @@ class _BodyState extends State<Body> {
                       email: emailController.text.trim(),
                       password: passwordController.text.trim(),
                     );
+                if (emailController.text == "firaschabchoub@hotmail.com") {
+                  if (passwordController.text == "@Farrousa123") {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => HomePage(),
+                      ),
+                    );
+                  }
+                }
               },
             ),
           ),

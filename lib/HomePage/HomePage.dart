@@ -39,6 +39,45 @@ class _HomePageState extends State<HomePage> {
     }
 
     return Scaffold(
+      drawer: Drawer(
+        child: Column(
+          children: [
+            DrawerHeader(
+              child: Container(
+                child: Center(
+                  child: Text("Username"),
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.account_box_rounded,
+                size: 30.0,
+              ),
+              title: Text(
+                "Profile",
+              ),
+              trailing: Icon(
+                Icons.arrow_right_rounded,
+                size: 30.0,
+              ),
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.account_box_rounded,
+                size: 30.0,
+              ),
+              title: Text(
+                "Profile",
+              ),
+              trailing: Icon(
+                Icons.arrow_right_rounded,
+                size: 30.0,
+              ),
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
         title: Text("MasBros.Inc"),
         actions: [
