@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:masbros/HomePage/Components/Body.dart';
+import 'package:masbros/Login/LoginPage.dart';
+import 'package:masbros/Profile/Profile.dart';
 import 'package:masbros/Resources/Date.dart';
 import 'package:masbros/Resources/db.dart';
 import 'package:masbros/Services/notification_service.dart';
@@ -61,19 +63,33 @@ class _HomePageState extends State<HomePage> {
                 Icons.arrow_right_rounded,
                 size: 30.0,
               ),
+              onTap: () => {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => Profile(),
+                  ),
+                ),
+              },
             ),
             ListTile(
               leading: Icon(
-                Icons.account_box_rounded,
+                Icons.logout_rounded,
                 size: 30.0,
               ),
               title: Text(
-                "Profile",
+                "Log Out",
               ),
               trailing: Icon(
                 Icons.arrow_right_rounded,
                 size: 30.0,
               ),
+              onTap: () => {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => LoginPage(),
+                  ),
+                ),
+              },
             ),
           ],
         ),
