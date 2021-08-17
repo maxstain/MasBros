@@ -60,8 +60,8 @@ class _HomePageState extends State<HomePage> {
                 "Profile",
               ),
               trailing: Icon(
-                Icons.arrow_right_rounded,
-                size: 30.0,
+                Icons.arrow_forward_ios,
+                size: 25.0,
               ),
               onTap: () => {
                 Navigator.of(context).push(
@@ -80,8 +80,8 @@ class _HomePageState extends State<HomePage> {
                 "Log Out",
               ),
               trailing: Icon(
-                Icons.arrow_right_rounded,
-                size: 30.0,
+                Icons.arrow_forward_ios,
+                size: 25.0,
               ),
               onTap: () => {
                 Navigator.of(context).pushReplacement(
