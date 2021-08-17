@@ -11,7 +11,40 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: null,
+      child: ListView(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(
+              vertical: 90.0,
+            ),
+            child: Text("ProfileImage"),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "Username",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+                color: Theme.of(context).accentColor,
+              ),
+            ),
+          ),
+          ListTile(
+            leading: Icon(Icons.group),
+            title: Text(
+              "Groups",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+                color: Colors.black54,
+              ),
+            ),
+            trailing: Icon(Icons.arrow_forward_ios),
+          ),
+        ],
+      ),
     );
   }
 }
