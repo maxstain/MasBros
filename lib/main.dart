@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:masbros/HomePage/HomePage.dart';
 import 'package:masbros/Login/LoginPage.dart';
 import 'package:masbros/Services/Authentication_Service.dart';
 import 'package:masbros/Services/notification_service.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'MasterBros',
+        title: 'MasBros',
         theme: ThemeData(
           primarySwatch: Colors.pink,
         ),
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
               print("You have an Error! ${snapshot.error.toString()}");
               return Text("Oops, Something went wrong!");
             } else if (snapshot.hasData) {
-              return LoginPage();
+              return AuthenticationWrapper();
             } else {
               return Center(
                 child: CircularProgressIndicator(),
@@ -58,11 +59,12 @@ class MyApp extends StatelessWidget {
 class AuthenticationWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User>();
+    final firebaseUser = context.watch<AuthenticationService>();
+    // ignore: unnecessary_null_comparison
     if (firebaseUser != null) {
       return SplashScreen();
     } else {
-      return LoginPage();
+      return HomePage();
     }
   }
 }

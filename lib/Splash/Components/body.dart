@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masbros/HomePage/HomePage.dart';
+import 'package:masbros/Login/LoginPage.dart';
 
 class Body extends StatefulWidget {
   Body({Key? key}) : super(key: key);
@@ -25,7 +25,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       controller.reverse().then((value) => {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (BuildContext context) => HomePage(),
+                builder: (BuildContext context) => LoginPage(),
               ),
             ),
           });
