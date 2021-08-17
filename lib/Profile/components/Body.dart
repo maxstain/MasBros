@@ -10,41 +10,42 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView(
-        children: [
-          Container(
+    return ListView(
+      children: [
+        Center(
+          child: Container(
             padding: EdgeInsets.symmetric(
               vertical: 90.0,
             ),
             child: Text("ProfileImage"),
           ),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              "Username",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20.0,
-                color: Theme.of(context).accentColor,
-              ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text(
+            "Ryzerrector",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20.0,
+              color: Theme.of(context).accentColor,
             ),
           ),
-          ListTile(
-            leading: Icon(Icons.group),
-            title: Text(
-              "Groups",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20.0,
-                color: Colors.black54,
-              ),
+        ),
+        ListTile(
+          leading: Icon(Icons.group),
+          title: Text(
+            "Groups",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20.0,
+              color: Colors.black54,
             ),
-            trailing: Icon(Icons.arrow_forward_ios),
           ),
-        ],
-      ),
+          trailing: Icon(Icons.arrow_forward_ios),
+          onTap: () => {},
+        ),
+      ],
     );
   }
 }
