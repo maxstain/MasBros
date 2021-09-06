@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:masbros/Login/LoginPage.dart';
 import 'package:masbros/Services/Authentication_Service.dart';
+import 'package:masbros/main.dart';
 import 'package:provider/provider.dart';
 
 class Body extends StatefulWidget {
@@ -13,6 +14,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
   Text errMsg = Text("");
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,21 @@ class _BodyState extends State<Body> {
           Container(
             padding: EdgeInsets.only(bottom: 20.0, left: 8.0, right: 8.0),
             child: TextFormField(
+              controller: usernameController,
+              textAlign: TextAlign.center,
+              decoration: InputDecoration(
+                labelText: "Username",
+                prefixIcon: Icon(Icons.account_box_rounded),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(bottom: 20.0, left: 8.0, right: 8.0),
+            child: TextFormField(
+              keyboardType: TextInputType.emailAddress,
               controller: emailController,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
@@ -96,9 +113,12 @@ class _BodyState extends State<Body> {
                   });
                 } else {
                   await loginProvider.Register(
+                    usernameController.text.trim(),
                     emailController.text.trim(),
                     passwordController.text.trim(),
                   );
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (_) => AuthenticationWrapper()));
                 }
               },
             ),

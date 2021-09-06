@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:masbros/HomePage/HomePage.dart';
+import 'package:masbros/Services/Appointments_Services.dart';
 import 'package:masbros/Services/Authentication_Service.dart';
 import 'package:masbros/Services/notification_service.dart';
 import 'package:masbros/Splash/Splash.dart';
@@ -23,8 +24,15 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<AuthenticationService>.value(
           value: AuthenticationService(),
         ),
+        ChangeNotifierProvider<AppointmentsService>.value(
+          value: AppointmentsService(),
+        ),
         StreamProvider<User?>.value(
           value: AuthenticationService().user,
+          initialData: null,
+        ),
+        StreamProvider.value(
+          value: AppointmentsService().user,
           initialData: null,
         ),
       ],

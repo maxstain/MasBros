@@ -1,5 +1,8 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:masbros/Resources/db.dart';
+import 'package:masbros/Services/Appointments_Services.dart';
+import 'package:provider/provider.dart';
 
 class Body extends StatefulWidget {
   Body({Key? key}) : super(key: key);
@@ -16,12 +19,8 @@ class _BodyState extends State<Body> {
             child: new ListView.builder(
                 itemCount: dates.length,
                 itemBuilder: (BuildContext context, int i) {
-                  String _title = dates[i].date.year.toString() +
-                      "-" +
-                      dates[i].date.month.toString() +
-                      "-" +
-                      dates[i].date.day.toString();
-                  String _subtitle = dates[i].time!.format(context).toString();
+                  String _title = dates[i]!.value;
+                  String _subtitle = dates[i]!.value;
                   return new ListTile(
                     leading: Icon(
                       Icons.calendar_today,

@@ -1,34 +1,30 @@
 import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:masbros/Resources/Date.dart';
+import 'package:flutter/material.dart';
+import 'package:masbros/Resources/db.dart';
 
-class AuthenticationService with ChangeNotifier {
+class AppointmentsService with ChangeNotifier {
   final dbRef = FirebaseDatabase.instance.reference();
   bool _isLoading = false;
   String? _errorMessage;
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  DataSnapshot? appointments;
 
-  Future Register(String username, String email, String password) async {
+  Future AddAppointment(String date, String time) async {
     try {
       setLoading(true);
-      UserCredential authResult = await firebaseAuth
-          .createUserWithEmailAndPassword(email: email, password: password);
-      User? user = authResult.user;
-      await dbRef.child("users").push().set(
+      await dbRef.child("appointments").push().set(
         {
-          "createdAt": DateTime.now().toUtc().toString(),
-          "displayName": username,
-          "email": email,
-          "password": password,
+          "Date": date,
+          "Time": time,
         },
       );
+      print("Appointment added");
       setLoading(false);
-      return user;
     } on SocketException {
       setLoading(false);
       setMessage("No Internet connection, please connect to the internet");
@@ -40,14 +36,13 @@ class AuthenticationService with ChangeNotifier {
     notifyListeners();
   }
 
-  Future Login(String email, String password) async {
-    setLoading(true);
+  GetAppointment() async {
     try {
-      UserCredential authResult = await firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
-      User? user = authResult.user;
+      setLoading(true);
+      dbRef.child("appointments").once().then((DataSnapshot dataSnapshot) {
+        appointments = dataSnapshot.value;
+      });
       setLoading(false);
-      return user;
     } on SocketException {
       setLoading(false);
       setMessage("No Internet connection, please connect to the internet");
@@ -57,10 +52,7 @@ class AuthenticationService with ChangeNotifier {
       setMessage(e.toString());
     }
     notifyListeners();
-  }
-
-  Future Logout() async {
-    await firebaseAuth.signOut();
+    return appointments;
   }
 
   void setLoading(val) {

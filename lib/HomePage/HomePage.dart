@@ -5,6 +5,7 @@ import 'package:masbros/Login/LoginPage.dart';
 import 'package:masbros/Profile/Profile.dart';
 import 'package:masbros/Resources/Date.dart';
 import 'package:masbros/Resources/db.dart';
+import 'package:masbros/Services/Appointments_Services.dart';
 import 'package:masbros/Services/Authentication_Service.dart';
 import 'package:masbros/Services/notification_service.dart';
 import 'package:provider/provider.dart';
@@ -32,24 +33,24 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference appointments =
-        FirebaseFirestore.instance.collection('appointments');
-    Future<void> addAppointment(Date date) {
-      return appointments
-          .add(date.date.toString() + ' - ' + date.time.toString())
-          .then((value) => print("Appointment added"))
-          .catchError((error) => print("Failed to add appointment! $error"));
-    }
-
     final loginProvider = Provider.of<AuthenticationService>(context);
+    final appointmentsProvider = Provider.of<AppointmentsService>(context);
     return Scaffold(
       drawer: Drawer(
         child: Column(
           children: [
             DrawerHeader(
+              padding: EdgeInsets.zero,
               child: Container(
+                color: Theme.of(context).primaryColor,
                 child: Center(
-                  child: Text("Username"),
+                  child: Text(
+                    "MasBros.Inc",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24.0,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -113,8 +114,6 @@ class _HomePageState extends State<HomePage> {
                 () {
                   _dateTime = pickedDate.toLocal();
                   _timeOfDay = pickedTime;
-                  date = new Date(_dateTime, _timeOfDay);
-                  dates.add(date);
                   NotificationService().showNotification(
                     1,
                     "New appointment added",
@@ -130,7 +129,13 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
               );
-              addAppointment(date);
+              appointmentsProvider.AddAppointment(
+                  _dateTime.year.toString() +
+                      "-" +
+                      _dateTime.month.toString() +
+                      "-" +
+                      _dateTime.day.toString(),
+                  _timeOfDay!.format(context).toString());
             },
           ),
         ],
