@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:masbros/HomePage/HomePage.dart';
-import 'package:masbros/Login/LoginPage.dart';
 import 'package:masbros/Services/Authentication_Service.dart';
 import 'package:masbros/Services/notification_service.dart';
 import 'package:masbros/Splash/Splash.dart';
@@ -21,12 +20,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<AuthenticationService>(
-          create: (_) => AuthenticationService(FirebaseAuth.instance),
+        ChangeNotifierProvider<AuthenticationService>.value(
+          value: AuthenticationService(),
         ),
-        StreamProvider(
-          create: (context) =>
-              context.read<AuthenticationService>().authStateChanges,
+        StreamProvider<User?>.value(
+          value: AuthenticationService().user,
           initialData: null,
         ),
       ],
@@ -59,12 +57,12 @@ class MyApp extends StatelessWidget {
 class AuthenticationWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final firebaseUser = context.watch<AuthenticationService>();
+    final firebaseUser = Provider.of<User?>(context);
     // ignore: unnecessary_null_comparison
     if (firebaseUser != null) {
-      return SplashScreen();
-    } else {
       return HomePage();
+    } else {
+      return SplashScreen();
     }
   }
 }

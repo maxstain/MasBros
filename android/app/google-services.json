@@ -1,15 +1,16 @@
 {
   "project_info": {
     "project_number": "398512982415",
+    "firebase_url": "https://masbros-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "masbros",
     "storage_bucket": "masbros.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:398512982415:android:d0c1b21958209669d523fa",
+        "mobilesdk_app_id": "1:398512982415:android:c90580fefc537d4ed523fa",
         "android_client_info": {
-          "package_name": "com.masbros.masbros"
+          "package_name": "com.example.flutter_masterbros"
         }
       },
       "oauth_client": [
@@ -20,7 +21,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCPFUru3uMobxhcoyrFHL-JWESE7hA2jJ8"
+          "current_key": "AIzaSyDmFTj_bvfWOVbM_7l8yFu-v6G8DlUJGHU"
         }
       ],
       "services": {
@@ -29,6 +30,13 @@
             {
               "client_id": "398512982415-qu8rdunbjm39rhb6es3qhn58pqe4h124.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "398512982415-7fg4f5lnvi4a4pqkj125cmfgt12jvui4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.masbros.masbros"
+              }
             }
           ]
         }

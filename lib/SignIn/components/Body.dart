@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:masbros/Login/LoginPage.dart';
 import 'package:masbros/Services/Authentication_Service.dart';
+import 'package:provider/provider.dart';
 
 class Body extends StatefulWidget {
   Body({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class _BodyState extends State<Body> {
   Text errMsg = Text("");
   @override
   Widget build(BuildContext context) {
+    final loginProvider = Provider.of<AuthenticationService>(context);
     return Container(
       child: ListView(
         children: [
@@ -29,7 +31,6 @@ class _BodyState extends State<Body> {
               ),
             ),
           ),
-          errMsg,
           Container(
             padding: EdgeInsets.only(bottom: 20.0, left: 8.0, right: 8.0),
             child: TextFormField(
@@ -37,6 +38,10 @@ class _BodyState extends State<Body> {
               textAlign: TextAlign.center,
               decoration: InputDecoration(
                 labelText: "Email",
+                prefixIcon: Icon(Icons.email),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
             ),
           ),
@@ -48,12 +53,18 @@ class _BodyState extends State<Body> {
               textAlign: TextAlign.center,
               decoration: InputDecoration(
                 labelText: "Password",
+                prefixIcon: Icon(Icons.vpn_key),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
             ),
           ),
+          SizedBox(
+            height: 10,
+          ),
           Padding(
             padding: EdgeInsets.symmetric(
-              vertical: 20.0,
               horizontal: 8.0,
             ),
             child: TextButton(
@@ -65,51 +76,50 @@ class _BodyState extends State<Body> {
                 ),
                 backgroundColor: MaterialStateProperty.all(Colors.pink),
               ),
-              child: Text(
-                "Sign In",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              onPressed: () {
-                /* context.read<AuthenticationService>().signIn(
-                      email: emailController.text.trim(),
-                      password: passwordController.text.trim(),
-                    ); */
-                if (emailController.text == "firaschabchoub@hotmail.com") {
-                  if (passwordController.text == "@Farrousa123") {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => LoginPage(),
-                      ),
-                    );
-                  } else {
-                    setState(() {
-                      errMsg = new Text(
-                        "Wrong password!",
-                        style: TextStyle(
-                          color: Colors.red,
-                        ),
-                        textAlign: TextAlign.center,
-                      );
-                    });
-                  }
-                } else {
-                  setState(() {
-                    errMsg = new Text(
-                      "Wrong Email!",
+              child: loginProvider.isLoading
+                  ? CircularProgressIndicator(
+                      color: Colors.white,
+                    )
+                  : Text(
+                      "Sign In",
                       style: TextStyle(
-                        color: Colors.red,
+                        color: Colors.white,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
                       ),
-                      textAlign: TextAlign.center,
-                    );
+                    ),
+              onPressed: () async {
+                if ((emailController.text.isEmpty) ||
+                    (passwordController.text.isEmpty)) {
+                  setState(() {
+                    errMsg = Text("Wrong Credentials");
                   });
+                } else {
+                  await loginProvider.Register(
+                    emailController.text.trim(),
+                    passwordController.text.trim(),
+                  );
                 }
               },
             ),
           ),
+          SizedBox(
+            height: 10,
+          ),
+          // ignore: unnecessary_null_comparison
+          if (loginProvider.errorMessage != null)
+            Container(
+              color: Colors.amberAccent,
+              padding: EdgeInsets.all(10),
+              child: ListTile(
+                title: Text(loginProvider.errorMessage.toString()),
+                leading: Icon(Icons.error),
+                trailing: IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () => loginProvider.setMessage(null),
+                ),
+              ),
+            ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 12.0),
             child: Row(

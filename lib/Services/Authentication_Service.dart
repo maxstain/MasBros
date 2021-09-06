@@ -1,31 +1,67 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 
-class AuthenticationService {
-  final FirebaseAuth _firebaseAuth;
+class AuthenticationService with ChangeNotifier {
+  bool _isLoading = false;
+  String? _errorMessage;
+  bool get isLoading => _isLoading;
+  String? get errorMessage => _errorMessage;
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-  AuthenticationService(this._firebaseAuth);
-
-  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
-
-  Future<String?> signIn(
-      {required String email, required String password}) async {
+  Future Register(String email, String password) async {
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
-      return "Signed In";
-    } on FirebaseAuthException catch (e) {
-      return e.message;
+      setLoading(true);
+      UserCredential authResult = await firebaseAuth
+          .createUserWithEmailAndPassword(email: email, password: password);
+      User? user = authResult.user;
+      setLoading(false);
+      return user;
+    } on SocketException {
+      setLoading(false);
+      setMessage("No Internet connection, please connect to the internet");
+    } catch (e) {
+      setLoading(false);
+      print(e);
+      setMessage(e.toString());
     }
+    notifyListeners();
   }
 
-  Future<String?> signUp(
-      {required String email, required String password}) async {
+  Future Login(String email, String password) async {
+    setLoading(true);
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
+      UserCredential authResult = await firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
-      return "Signed Up";
-    } on FirebaseAuthException catch (e) {
-      e.message;
+      User? user = authResult.user;
+      setLoading(false);
+      return user;
+    } on SocketException {
+      setLoading(false);
+      setMessage("No Internet connection, please connect to the internet");
+    } catch (e) {
+      setLoading(false);
+      print(e);
+      setMessage(e.toString());
     }
+    notifyListeners();
   }
+
+  Future Logout() async {
+    await firebaseAuth.signOut();
+  }
+
+  void setLoading(val) {
+    _isLoading = val;
+    notifyListeners();
+  }
+
+  void setMessage(message) {
+    _errorMessage = message;
+    notifyListeners();
+  }
+
+  Stream<User?> get user =>
+      firebaseAuth.authStateChanges().map((event) => event);
 }

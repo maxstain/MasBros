@@ -5,7 +5,9 @@ import 'package:masbros/Login/LoginPage.dart';
 import 'package:masbros/Profile/Profile.dart';
 import 'package:masbros/Resources/Date.dart';
 import 'package:masbros/Resources/db.dart';
+import 'package:masbros/Services/Authentication_Service.dart';
 import 'package:masbros/Services/notification_service.dart';
+import 'package:provider/provider.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 
@@ -39,6 +41,7 @@ class _HomePageState extends State<HomePage> {
           .catchError((error) => print("Failed to add appointment! $error"));
     }
 
+    final loginProvider = Provider.of<AuthenticationService>(context);
     return Scaffold(
       drawer: Drawer(
         child: Column(
@@ -82,13 +85,7 @@ class _HomePageState extends State<HomePage> {
                 Icons.arrow_forward_ios,
                 size: 25.0,
               ),
-              onTap: () => {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => LoginPage(),
-                  ),
-                ),
-              },
+              onTap: () async => await loginProvider.Logout(),
             ),
           ],
         ),
