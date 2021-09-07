@@ -12,7 +12,7 @@ class AppointmentsService with ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  DataSnapshot? appointments;
+  List? appointments;
 
   Future AddAppointment(String date, String time) async {
     try {
@@ -34,25 +34,6 @@ class AppointmentsService with ChangeNotifier {
       setMessage(e.toString());
     }
     notifyListeners();
-  }
-
-  GetAppointment() async {
-    try {
-      setLoading(true);
-      dbRef.child("appointments").once().then((DataSnapshot dataSnapshot) {
-        appointments = dataSnapshot.value;
-      });
-      setLoading(false);
-    } on SocketException {
-      setLoading(false);
-      setMessage("No Internet connection, please connect to the internet");
-    } catch (e) {
-      setLoading(false);
-      print(e);
-      setMessage(e.toString());
-    }
-    notifyListeners();
-    return appointments;
   }
 
   void setLoading(val) {
