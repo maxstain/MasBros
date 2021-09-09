@@ -13,13 +13,14 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     final appointmentsProvider = Provider.of<AppointmentsService>(context);
-    List? dates = appointmentsProvider.appointments;
+    List? dates = appointmentsProvider.getAppointment();
+    //run flutter pub cache repair
     return dates!.length < 0
         ? new ListView.builder(
             itemCount: dates.length,
             itemBuilder: (BuildContext context, int i) {
-              String? _title = dates[i].key;
-              String _subtitle = dates[i].value;
+              String? _title = dates[i];
+              String _subtitle = dates[i];
               return new ListTile(
                 leading: Icon(
                   Icons.calendar_today,

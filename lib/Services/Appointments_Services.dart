@@ -42,6 +42,7 @@ class AppointmentsService with ChangeNotifier {
       appointments = dbRef.child("appointments").get().asStream() as List?;
       print("Appointment Loaded");
       setLoading(false);
+      return appointments;
     } on SocketException {
       setLoading(false);
       setMessage("No Internet connection, please connect to the internet");
