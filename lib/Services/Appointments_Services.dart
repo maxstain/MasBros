@@ -36,6 +36,23 @@ class AppointmentsService with ChangeNotifier {
     notifyListeners();
   }
 
+  getAppointment() {
+    try {
+      setLoading(true);
+      appointments = dbRef.child("appointments").get().asStream() as List?;
+      print("Appointment Loaded");
+      setLoading(false);
+    } on SocketException {
+      setLoading(false);
+      setMessage("No Internet connection, please connect to the internet");
+    } catch (e) {
+      setLoading(false);
+      print(e);
+      setMessage(e.toString());
+    }
+    notifyListeners();
+  }
+
   void setLoading(val) {
     _isLoading = val;
     notifyListeners();

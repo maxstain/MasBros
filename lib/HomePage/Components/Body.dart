@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:masbros/Resources/db.dart';
+import 'package:provider/provider.dart';
+import 'package:masbros/Services/Appointments_Services.dart';
 
 class Body extends StatefulWidget {
   Body({Key? key}) : super(key: key);
@@ -11,13 +12,14 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    // ignore: unnecessary_null_comparison
-    return dates != null
+    final appointmentsProvider = Provider.of<AppointmentsService>(context);
+    List? dates = appointmentsProvider.appointments;
+    return dates!.length < 0
         ? new ListView.builder(
-            itemCount: dates.toString().length,
+            itemCount: dates.length,
             itemBuilder: (BuildContext context, int i) {
-              String? _title = dates![i].key;
-              String _subtitle = dates![i].value;
+              String? _title = dates[i].key;
+              String _subtitle = dates[i].value;
               return new ListTile(
                 leading: Icon(
                   Icons.calendar_today,
@@ -31,7 +33,7 @@ class _BodyState extends State<Body> {
                   onPressed: () {
                     setState(
                       () {
-                        dates!.remove(dates![i]);
+                        dates.remove(dates[i]);
                       },
                     );
                     showDialog(
