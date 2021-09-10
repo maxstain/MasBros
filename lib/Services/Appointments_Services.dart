@@ -3,18 +3,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:masbros/Resources/Date.dart';
 
 class AppointmentsService with ChangeNotifier {
   final dbRef = FirebaseDatabase.instance.reference();
-  List<Date>? dates = [];
   bool _isLoading = false;
   String? _errorMessage;
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-  Future AddAppointment(String date, String time) async {
+  Future addAppointment(String date, String time) async {
     try {
       setLoading(true);
       await dbRef.child("appointments").push().set(
@@ -39,7 +37,7 @@ class AppointmentsService with ChangeNotifier {
   getAppointment() {
     try {
       setLoading(true);
-      dbRef.child("appointments").once().then(
+      /*dbRef.child("appointments").once().then(
         (DataSnapshot dataSnapshot) {
           var keys = dataSnapshot.value.keys;
           var values = dataSnapshot.value;
@@ -54,7 +52,7 @@ class AppointmentsService with ChangeNotifier {
       );
       print("Appointment Loaded");
       setLoading(false);
-      return dates;
+      return dates;*/
     } on SocketException {
       setLoading(false);
       setMessage("No Internet connection, please connect to the internet");

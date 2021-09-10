@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
               );
-              appointmentsProvider.AddAppointment(
+              appointmentsProvider.addAppointment(
                   _dateTime.year.toString() +
                       "-" +
                       _dateTime.month.toString() +

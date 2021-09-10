@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:masbros/Resources/Date.dart';
@@ -11,10 +12,32 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  List<Date>? appointments = AppointmentsService().getAppointment();
+  List<Date>? dates = [];
+
+  @override
+  void initState() {
+    super.initState();
+    DatabaseReference dbRef =
+        FirebaseDatabase.instance.reference().child("appointments");
+    dbRef.child("appointments").once().then(
+      (DataSnapshot dataSnapshot) {
+        dates!.clear();
+        var keys = dataSnapshot.value.keys;
+        var values = dataSnapshot.value;
+        for (var key in keys) {
+          Date date = new Date(
+            values[key]["Date"],
+            values[key]["Time"],
+          );
+          dates!.add(date);
+        }
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return appointments!.length <= 0
+    return dates!.length <= 0
         ? Center(
             child: Text(
               "No Appointments yet",
@@ -26,7 +49,7 @@ class _BodyState extends State<Body> {
             ),
           )
         : ListView.builder(
-            itemCount: appointments!.length,
+            itemCount: dates!.length,
             itemBuilder: (_, i) {
               return ListTile(
                 leading: Icon(
@@ -34,12 +57,12 @@ class _BodyState extends State<Body> {
                   color: Theme.of(context).primaryColor,
                 ),
                 title: Text(
-                  appointments![i].date.toString(),
+                  dates![i].date.toString(),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                subtitle: Text(appointments![i].time.toString()),
+                subtitle: Text(dates![i].time.toString()),
               );
             },
           );
