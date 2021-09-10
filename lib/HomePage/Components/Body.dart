@@ -8,12 +8,6 @@ class Body extends StatefulWidget {
 
   @override
   _BodyState createState() => _BodyState();
-
-  @override
-  void initState() {
-    initState();
-    AppointmentsService().getAppointment();
-  }
 }
 
 class _BodyState extends State<Body> {
