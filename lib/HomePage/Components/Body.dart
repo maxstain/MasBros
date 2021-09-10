@@ -17,8 +17,7 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     super.initState();
-    DatabaseReference dbRef =
-        FirebaseDatabase.instance.reference().child("appointments");
+    DatabaseReference dbRef = FirebaseDatabase.instance.reference();
     dbRef.child("appointments").once().then(
       (DataSnapshot dataSnapshot) {
         dates!.clear();
@@ -31,6 +30,9 @@ class _BodyState extends State<Body> {
           );
           dates!.add(date);
         }
+        setState(() {
+          //
+        });
       },
     );
   }
