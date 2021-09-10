@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            ListTile(
+            /* ListTile(
               leading: Icon(
                 Icons.account_box_rounded,
                 size: 30.0,
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               },
-            ),
+            ), */
             ListTile(
               leading: Icon(
                 Icons.logout_rounded,
