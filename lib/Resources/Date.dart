@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
-
 class Date {
-  final DateTime date;
-  final TimeOfDay? time;
+  final String date;
+  final String? time;
 
   Date(this.date, this.time);
 }

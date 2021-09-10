@@ -8,6 +8,7 @@ import 'package:masbros/Resources/db.dart';
 import 'package:masbros/Services/Appointments_Services.dart';
 import 'package:masbros/Services/Authentication_Service.dart';
 import 'package:masbros/Services/notification_service.dart';
+import 'package:masbros/main.dart';
 import 'package:provider/provider.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
@@ -136,6 +137,8 @@ class _HomePageState extends State<HomePage> {
                       "-" +
                       _dateTime.day.toString(),
                   _timeOfDay!.format(context).toString());
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (_) => AuthenticationWrapper()));
             },
           ),
         ],
