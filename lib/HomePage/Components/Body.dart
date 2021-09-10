@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:masbros/HomePage/HomePage.dart';
 import 'package:masbros/Resources/Date.dart';
 import 'package:masbros/Services/Appointments_Services.dart';
 
@@ -50,23 +51,39 @@ class _BodyState extends State<Body> {
               ),
             ),
           )
-        : ListView.builder(
-            itemCount: dates!.length,
-            itemBuilder: (_, i) {
-              return ListTile(
-                leading: Icon(
-                  Icons.calendar_today,
-                  color: Theme.of(context).primaryColor,
-                ),
-                title: Text(
-                  dates![i].date.toString(),
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
+        : RefreshIndicator(
+            displacement: 10,
+            color: Theme.of(context).primaryColor,
+            onRefresh: _refresh,
+            child: ListView.builder(
+              itemCount: dates!.length,
+              itemBuilder: (_, i) {
+                return ListTile(
+                  leading: Icon(
+                    Icons.calendar_today,
+                    color: Theme.of(context).primaryColor,
                   ),
-                ),
-                subtitle: Text(dates![i].time.toString()),
-              );
-            },
+                  title: Text(
+                    dates![i].date.toString(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  subtitle: Text(dates![i].time.toString()),
+                );
+              },
+            ),
           );
+  }
+
+  Future<void> _refresh() {
+    return Future.delayed(
+      Duration(seconds: 2),
+      () => Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => HomePage(),
+        ),
+      ),
+    );
   }
 }
