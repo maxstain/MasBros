@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Body extends StatefulWidget {
@@ -8,6 +9,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -23,7 +25,7 @@ class _BodyState extends State<Body> {
         Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
-            "Ryzerrector",
+            "${user!.displayName}",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontWeight: FontWeight.bold,
