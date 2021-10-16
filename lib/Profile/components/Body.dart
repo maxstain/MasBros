@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:masbros/Account_Settings/Account_Settings.dart';
 
 class Body extends StatefulWidget {
   Body({Key? key}) : super(key: key);
@@ -9,7 +10,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  User? user = FirebaseAuth.instance.currentUser;
+  final User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -17,9 +18,14 @@ class _BodyState extends State<Body> {
         Center(
           child: Container(
             padding: EdgeInsets.symmetric(
-              vertical: 90.0,
+              vertical: 50.0,
             ),
-            child: Text("ProfileImage"),
+            child: CircleAvatar(
+              radius: 100.0,
+              backgroundImage: user!.photoURL != null
+                  ? NetworkImage(user!.photoURL.toString())
+                  : NetworkImage("https://picsum.photos/250?image=9"),
+            ),
           ),
         ),
         Padding(
@@ -30,14 +36,14 @@ class _BodyState extends State<Body> {
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20.0,
-              color: Theme.of(context).accentColor,
+              color: Colors.pink,
             ),
           ),
         ),
         ListTile(
-          leading: Icon(Icons.group),
+          leading: Icon(Icons.settings),
           title: Text(
-            "Groups",
+            "Account Settings",
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20.0,
@@ -45,7 +51,13 @@ class _BodyState extends State<Body> {
             ),
           ),
           trailing: Icon(Icons.arrow_forward_ios),
-          onTap: () => {},
+          onTap: () => {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => AccountSettings(),
+              ),
+            ),
+          },
         ),
       ],
     );

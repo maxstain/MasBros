@@ -1,10 +1,8 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:masbros/Resources/Date.dart';
 
 class AuthenticationService with ChangeNotifier {
   final dbRef = FirebaseDatabase.instance.reference();
@@ -21,6 +19,8 @@ class AuthenticationService with ChangeNotifier {
       UserCredential authResult = await firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
       User? user = authResult.user;
+      await user!.updateDisplayName(username);
+      await user.updatePhotoURL("https://robohash.org/$username");
       await firestore.collection("Users").add(
         {
           "displayName": username,

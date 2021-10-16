@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:masbros/HomePage/Components/Body.dart';
 import 'package:masbros/Login/LoginPage.dart';
@@ -36,6 +37,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final loginProvider = Provider.of<AuthenticationService>(context);
     final appointmentsProvider = Provider.of<AppointmentsService>(context);
+    final User? user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       drawer: Drawer(
         child: Column(
@@ -43,14 +45,25 @@ class _HomePageState extends State<HomePage> {
             DrawerHeader(
               padding: EdgeInsets.zero,
               child: Container(
-                color: Theme.of(context).primaryColor,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                ),
                 child: Center(
-                  child: Text(
-                    "MasBros.Inc",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24.0,
-                    ),
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 60,
+                        backgroundImage:
+                            NetworkImage(user!.photoURL.toString()),
+                      ),
+                      Text(
+                        "${user.displayName}",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24.0,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

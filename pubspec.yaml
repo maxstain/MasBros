@@ -35,11 +35,15 @@ dependencies:
   firebase_analytics: ^8.2.0
   firebase_database: ^7.1.2
   provider: ^5.0.0
+  flutter_app_name: ^0.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.9.1
+
+flutter_app_name:
+  name: "MasBros.Inc"
 
 flutter_icons:
   image_path: "assets/pink water drop.png"
