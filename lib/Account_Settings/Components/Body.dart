@@ -81,8 +81,8 @@ class _BodyState extends State<Body> {
                       ),
                       TextButton(
                         child: Text("Delete"),
-                        onPressed: () {
-                          user!.delete();
+                        onPressed: () async {
+                          await user!.delete();
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
                               builder: (_) => MyApp(),
