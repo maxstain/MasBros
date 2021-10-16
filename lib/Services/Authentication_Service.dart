@@ -13,6 +13,29 @@ class AuthenticationService with ChangeNotifier {
   String? get errorMessage => _errorMessage;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
+  Future Update(String username, String email, String password) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if ((email.isEmpty) && (password.isEmpty)) {
+        await user!.updateDisplayName(username);
+        return user;
+      } else if ((username.isEmpty) && (password.isEmpty)) {
+        await user!.updateEmail(email);
+        return user;
+      } else if ((email.isEmpty) && (username.isEmpty)) {
+        await user!.updatePassword(password);
+        return user;
+      }
+      print("Updated");
+    } on SocketException {
+      setMessage("No Internet connection, please connect to the internet");
+    } catch (e) {
+      print(e);
+      setMessage(e.toString());
+    }
+    notifyListeners();
+  }
+
   Future Register(String username, String email, String password) async {
     try {
       setLoading(true);
