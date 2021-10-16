@@ -46,7 +46,7 @@ dev_dependencies:
   flutter_launcher_icons: ^0.9.1
 
 flutter_app_name:
-  name: "MasBros.Inc"
+  name: "MasBros"
 
 flutter_icons:
   image_path: "assets/pink water drop.png"

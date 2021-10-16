@@ -141,37 +141,16 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 onPressed: () async {
-                  if ((emailController.text.isEmpty) ||
-                      (passwordController.text.isEmpty) ||
-                      (usernameController.text.isEmpty)) {
-                    setState(() {
-                      errMsg = Text("Wrong Credentials");
-                    });
-                  } else {
-                    await updateProvider.Update(
-                      usernameController.text.trim(),
-                      emailController.text.trim(),
-                      passwordController.text.trim(),
-                    );
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (_) => AuthenticationWrapper()));
-                  }
+                  await updateProvider.Update(
+                    usernameController.text.trim(),
+                    emailController.text.trim(),
+                    passwordController.text.trim(),
+                  );
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (_) => AuthenticationWrapper()));
                 },
               ),
             ),
-            if (updateProvider.errorMessage != null)
-              Container(
-                color: Colors.amberAccent,
-                padding: EdgeInsets.all(10),
-                child: ListTile(
-                  title: Text(updateProvider.errorMessage.toString()),
-                  leading: Icon(Icons.error),
-                  trailing: IconButton(
-                    icon: Icon(Icons.close),
-                    onPressed: () => updateProvider.setMessage(null),
-                  ),
-                ),
-              ),
           ],
         ),
       ),
@@ -179,6 +158,7 @@ class _BodyState extends State<Body> {
   }
 
   Future<void> _getFromGallery() async {
+    User? user = FirebaseAuth.instance.currentUser;
     File pickedFile = (await ImagePicker().pickImage(
       source: ImageSource.gallery,
       maxWidth: 1800,
@@ -188,6 +168,7 @@ class _BodyState extends State<Body> {
     setState(() {
       if (pickedFile != null) {
         imageFile = pickedFile;
+        user!.updatePhotoURL(pickedFile.path);
       }
     });
   }

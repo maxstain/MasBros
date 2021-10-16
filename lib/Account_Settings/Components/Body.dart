@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:masbros/Account_Settings/Components/Update_Informations/Update_Informations.dart';
+import 'package:masbros/main.dart';
 
 class Body extends StatefulWidget {
   Body({Key? key}) : super(key: key);
@@ -82,6 +83,11 @@ class _BodyState extends State<Body> {
                         child: Text("Delete"),
                         onPressed: () {
                           user!.delete();
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (_) => MyApp(),
+                            ),
+                          );
                         },
                       ),
                     ],
