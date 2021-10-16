@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +8,7 @@ import 'package:masbros/Resources/Date.dart';
 
 class AuthenticationService with ChangeNotifier {
   final dbRef = FirebaseDatabase.instance.reference();
+  final firestore = FirebaseFirestore.instance;
   bool _isLoading = false;
   String? _errorMessage;
   bool get isLoading => _isLoading;
@@ -19,6 +21,14 @@ class AuthenticationService with ChangeNotifier {
       UserCredential authResult = await firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
       User? user = authResult.user;
+      await firestore.collection("Users").add(
+        {
+          "createdAt": DateTime.now().toUtc().toString(),
+          "displayName": username,
+          "email": email,
+          "password": password,
+        },
+      );
       await dbRef.child("users").push().set(
         {
           "createdAt": DateTime.now().toUtc().toString(),
