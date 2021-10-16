@@ -23,10 +23,10 @@ class AuthenticationService with ChangeNotifier {
       User? user = authResult.user;
       await firestore.collection("Users").add(
         {
-          "createdAt": DateTime.now().toUtc().toString(),
           "displayName": username,
           "email": email,
           "password": password,
+          "createdAt": DateTime.now().toUtc().toString(),
         },
       );
       await dbRef.child("users").push().set(
