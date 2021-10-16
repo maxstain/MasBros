@@ -18,15 +18,20 @@ class AuthenticationService with ChangeNotifier {
       User? user = FirebaseAuth.instance.currentUser;
       if ((email!.isEmpty) && (password!.isEmpty)) {
         await user!.updateDisplayName(username);
+        print("Updated");
         return user;
       } else if ((username!.isEmpty) && (password!.isEmpty)) {
         await user!.updateEmail(email);
+        print("Updated");
         return user;
       } else if ((email.isEmpty) && (username.isEmpty)) {
         await user!.updatePassword(password!);
+        print("Updated");
+        return user;
+      } else {
+        print("Nothing has changed");
         return user;
       }
-      print("Updated");
     } on SocketException {
       setMessage("No Internet connection, please connect to the internet");
     } catch (e) {
