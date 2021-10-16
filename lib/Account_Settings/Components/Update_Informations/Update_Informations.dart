@@ -1,5 +1,9 @@
+// ignore_for_file: unnecessary_null_comparison
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:masbros/Services/Authentication_Service.dart';
 import 'package:masbros/main.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +40,10 @@ class _BodyState extends State<Body> {
   final TextEditingController passwordController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
   Text errMsg = Text("");
+  late File imageFile;
+
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+
   @override
   Widget build(BuildContext context) {
     final updateProvider = Provider.of<AuthenticationService>(context);
@@ -59,6 +67,7 @@ class _BodyState extends State<Body> {
                     icon: Icon(Icons.add_a_photo),
                     onPressed: () {
                       print("pressed");
+                      _getFromGallery();
                     },
                   ),
                 ),
@@ -167,5 +176,19 @@ class _BodyState extends State<Body> {
         ),
       ),
     );
+  }
+
+  Future<void> _getFromGallery() async {
+    File pickedFile = (await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    )) as File;
+
+    setState(() {
+      if (pickedFile != null) {
+        imageFile = pickedFile;
+      }
+    });
   }
 }
