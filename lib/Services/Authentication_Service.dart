@@ -13,7 +13,7 @@ class AuthenticationService with ChangeNotifier {
   String? get errorMessage => _errorMessage;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-  Future Update(String? username, String? email, String? password) async {
+  Future update(String? username, String? email, String? password) async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
       if ((email!.isEmpty) && (password!.isEmpty)) {

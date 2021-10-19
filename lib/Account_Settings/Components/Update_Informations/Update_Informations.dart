@@ -141,7 +141,7 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 onPressed: () async {
-                  await updateProvider.Update(
+                  await updateProvider.update(
                     usernameController.text.trim(),
                     emailController.text.trim(),
                     passwordController.text.trim(),
