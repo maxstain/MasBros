@@ -21,12 +21,19 @@ class AuthenticationService with ChangeNotifier {
         return user;
       } else if ((username!.isEmpty) && (password!.isEmpty)) {
         await user!.updateEmail(email);
+        print("Updated");
         return user;
       } else if ((email.isEmpty) && (username.isEmpty)) {
         await user!.updatePassword(password!);
+        print("Updated");
+        return user;
+      } else {
+        await user!.updateDisplayName(username);
+        await user.updateEmail(email);
+        await user.updatePassword(password!);
+        print("Updated");
         return user;
       }
-      print("Updated");
     } on SocketException {
       setMessage("No Internet connection, please connect to the internet");
     } catch (e) {
