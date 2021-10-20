@@ -110,7 +110,11 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             icon: Icon(Icons.chat),
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                print("Chat");
+              });
+            },
           ),
           IconButton(
             icon: Icon(Icons.add),
