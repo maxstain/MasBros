@@ -109,6 +109,10 @@ class _HomePageState extends State<HomePage> {
         title: Text("MasBros.Inc"),
         actions: [
           IconButton(
+            icon: Icon(Icons.chat),
+            onPressed: () {},
+          ),
+          IconButton(
             icon: Icon(Icons.add),
             onPressed: () async {
               final DateTime pickedDate = await showDialog(

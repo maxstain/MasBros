@@ -83,6 +83,7 @@ class _BodyState extends State<Body> {
                         child: Text("Delete"),
                         onPressed: () async {
                           await user!.delete();
+                          await FirebaseAuth.instance.signOut();
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
                               builder: (_) => MyApp(),
