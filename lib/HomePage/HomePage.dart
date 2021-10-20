@@ -39,6 +39,14 @@ class _HomePageState extends State<HomePage> {
     final appointmentsProvider = Provider.of<AppointmentsService>(context);
     final User? user = FirebaseAuth.instance.currentUser;
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.chat),
+        onPressed: () {
+          setState(() {
+            print("Chat");
+          });
+        },
+      ),
       drawer: Drawer(
         child: Column(
           children: [
@@ -108,14 +116,6 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text("MasBros.Inc"),
         actions: [
-          IconButton(
-            icon: Icon(Icons.chat),
-            onPressed: () {
-              setState(() {
-                print("Chat");
-              });
-            },
-          ),
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () async {
