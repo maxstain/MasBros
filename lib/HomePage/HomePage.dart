@@ -59,6 +59,7 @@ class _HomePageState extends State<HomePage> {
               leading: Icon(
                 Icons.account_box_rounded,
                 size: 30.0,
+                color: Colors.pink,
               ),
               title: Text(
                 "Profile",
@@ -78,6 +79,7 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               leading: Icon(
                 Icons.logout_rounded,
+                color: Colors.pink,
                 size: 30.0,
               ),
               title: Text(
