@@ -50,31 +50,10 @@ class _HomePageState extends State<HomePage> {
       drawer: Drawer(
         child: Column(
           children: [
-            DrawerHeader(
-              padding: EdgeInsets.zero,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                ),
-                child: Center(
-                  child: Column(
-                    children: [
-                      CircleAvatar(
-                        radius: 60,
-                        backgroundImage:
-                            NetworkImage(user!.photoURL.toString()),
-                      ),
-                      Text(
-                        "${user.displayName}",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+            UserAccountsDrawerHeader(
+              accountName: Text(user!.displayName.toString()),
+              accountEmail: Text(user.email.toString()),
+              currentAccountPicture: Image.network(user.photoURL.toString()),
             ),
             ListTile(
               leading: Icon(
