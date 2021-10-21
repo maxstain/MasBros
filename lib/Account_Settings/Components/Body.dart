@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:masbros/Account_Settings/Components/Update_Informations/Update_Informations.dart';
+import 'package:masbros/Services/Authentication_Service.dart';
 import 'package:masbros/main.dart';
+import 'package:provider/provider.dart';
 
 class Body extends StatefulWidget {
   Body({Key? key}) : super(key: key);
@@ -14,6 +16,7 @@ class _BodyState extends State<Body> {
   User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
+    final loginProvider = Provider.of<AuthenticationService>(context);
     return Container(
       child: ListView(
         children: [
@@ -83,12 +86,8 @@ class _BodyState extends State<Body> {
                         child: Text("Delete"),
                         onPressed: () async {
                           await user!.delete();
-                          await FirebaseAuth.instance.signOut();
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (_) => MyApp(),
-                            ),
-                          );
+                          await loginProvider.Logout();
+                          Navigator.of(context).pop();
                         },
                       ),
                     ],
