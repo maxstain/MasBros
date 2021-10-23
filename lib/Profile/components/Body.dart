@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:masbros/Account_Settings/Account_Settings.dart';
+import 'package:masbros/theme_provider.dart';
+import 'package:masbros/widgets/change_theme_button.dart';
+import 'package:provider/provider.dart';
 
 class Body extends StatefulWidget {
   Body({Key? key}) : super(key: key);
@@ -11,8 +14,16 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   final User? user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
+    final Icon mode =
+        Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
+            ? Icon(Icons.light_mode_outlined)
+            : Icon(Icons.dark_mode);
+    final text = Provider.of<ThemeProvider>(context).themeMode == ThemeMode.dark
+        ? "Light Mode"
+        : "Dark Mode";
     return ListView(
       children: [
         Center(
@@ -47,7 +58,6 @@ class _BodyState extends State<Body> {
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20.0,
-              color: Colors.black54,
             ),
           ),
           trailing: Icon(Icons.arrow_forward_ios),
@@ -58,6 +68,17 @@ class _BodyState extends State<Body> {
               ),
             ),
           },
+        ),
+        ListTile(
+          leading: mode,
+          title: Text(
+            text,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20.0,
+            ),
+          ),
+          trailing: ChangeThemeButton(),
         ),
       ],
     );

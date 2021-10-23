@@ -6,6 +6,7 @@ import 'package:masbros/Services/Appointments_Services.dart';
 import 'package:masbros/Services/Authentication_Service.dart';
 import 'package:masbros/Services/notification_service.dart';
 import 'package:masbros/Splash/Splash.dart';
+import 'package:masbros/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -19,10 +20,14 @@ class MyApp extends StatelessWidget {
   final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
   @override
   Widget build(BuildContext context) {
+    // final themeProvider = Provider.of<ThemeProvider>(context);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<AuthenticationService>.value(
           value: AuthenticationService(),
+        ),
+        ChangeNotifierProvider<ThemeProvider>(
+          create: (_) => ThemeProvider(),
         ),
         ChangeNotifierProvider<AppointmentsService>.value(
           value: AppointmentsService(),
@@ -39,9 +44,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'MasBros',
-        theme: ThemeData(
-          primarySwatch: Colors.pink,
-        ),
+        themeMode: ThemeMode.system /*themeProvider.themeMode*/,
+        theme: MyThemes.lightTheme,
+        darkTheme: MyThemes.darkTheme,
         home: FutureBuilder(
           future: _fbApp,
           builder: (context, snapshot) {
