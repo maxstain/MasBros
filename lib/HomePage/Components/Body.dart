@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:masbros/HomePage/HomePage.dart';
 import 'package:masbros/Resources/Date.dart';
+import 'package:masbros/theme_provider.dart';
 
 class Body extends StatefulWidget {
   Body({Key? key}) : super(key: key);
@@ -60,7 +61,7 @@ class _BodyState extends State<Body> {
                 return ListTile(
                   leading: Icon(
                     Icons.calendar_today,
-                    color: Theme.of(context).primaryColor,
+                    color: Colors.pink,
                   ),
                   title: Text(
                     dates![i].date.toString(),

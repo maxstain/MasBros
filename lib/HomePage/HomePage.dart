@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:masbros/ChatPage/ChatPage.dart';
 import 'package:masbros/HomePage/Components/Body.dart';
 import 'package:masbros/Login/LoginPage.dart';
 import 'package:masbros/Profile/Profile.dart';
@@ -43,7 +44,11 @@ class _HomePageState extends State<HomePage> {
         child: Icon(Icons.chat),
         onPressed: () {
           setState(() {
-            print("Chat");
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => ChatPage(),
+              ),
+            );
           });
         },
       ),
