@@ -72,7 +72,7 @@ class _BodyState extends State<Body> {
         ListTile(
           leading: mode,
           title: Text(
-            text,
+            text + " (WIP)",
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20.0,
