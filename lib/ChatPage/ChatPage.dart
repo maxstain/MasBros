@@ -20,7 +20,10 @@ class _ChatPageState extends State<ChatPage> {
         title: Text("Chat"),
       ),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection("Chat").snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection("Chat")
+            .orderBy("time")
+            .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
             return Center(
@@ -45,7 +48,7 @@ class _ChatPageState extends State<ChatPage> {
                               Container(
                                 color: Colors.pink,
                                 padding: EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 8.0),
+                                    vertical: 20.0, horizontal: 8.0),
                                 width: MediaQuery.of(context).size.width / 1.1,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -98,7 +101,7 @@ class _ChatPageState extends State<ChatPage> {
                               Container(
                                 color: Colors.pink[200],
                                 padding: EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 8.0),
+                                    vertical: 20.0, horizontal: 8.0),
                                 width: MediaQuery.of(context).size.width / 1.1,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
