@@ -132,13 +132,22 @@ class _ChatPageState extends State<ChatPage> {
         },
       ),
       persistentFooterButtons: [
-        TextFormField(
-          decoration: InputDecoration(
-            hintText: "Type here....",
+        Container(
+          width: 280.0,
+          child: TextFormField(
+            decoration: InputDecoration(
+              hintText: "Type here....",
+            ),
+            textInputAction: TextInputAction.send,
+            controller: chatController,
           ),
-          textInputAction: TextInputAction.send,
-          controller: chatController,
-          onFieldSubmitted: (value) {
+        ),
+        IconButton(
+          icon: Icon(
+            Icons.send,
+            color: Colors.pink,
+          ),
+          onPressed: () {
             setState(() {
               FirebaseFirestore.instance.collection("Chat").add({
                 "msg": chatController.value.text,
@@ -148,15 +157,6 @@ class _ChatPageState extends State<ChatPage> {
               print(messages);
               chatController.text = "";
             });
-          },
-        ),
-        IconButton(
-          icon: Icon(
-            Icons.send,
-            color: Colors.pink,
-          ),
-          onPressed: () {
-            print("Sent");
           },
         ),
       ],
