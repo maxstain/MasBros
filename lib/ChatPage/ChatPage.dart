@@ -148,18 +148,16 @@ class _ChatPageState extends State<ChatPage> {
             color: Colors.pink,
           ),
           onPressed: () {
-            if ((chatController.value.text != "") ||
-                (chatController.value.text != " ")) {
-              setState(() {
-                FirebaseFirestore.instance.collection("Chat").add({
-                  "msg": chatController.value.text,
-                  "time": TimeOfDay.now().format(context),
-                  "sender": user!.displayName.toString(),
-                });
-                print(messages);
-                chatController.text = "";
+            setState(() {
+              FirebaseFirestore.instance.collection("Chat").add({
+                "msg": chatController.value.text,
+                "time": TimeOfDay.now().format(context),
+                "sender": user!.displayName.toString(),
+                "img": user!.photoURL,
               });
-            }
+              print(messages);
+              chatController.text = "";
+            });
           },
         ),
       ],
