@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Body extends StatelessWidget {
   List? msgs = [];
   Body({Key? key, List? this.msgs}) : super(key: key);
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +12,7 @@ class Body extends StatelessWidget {
       child: ListView.builder(
         itemCount: msgs!.length,
         itemBuilder: (BuildContext context, i) {
-          if (msgs![i]["sender"] == "Ryzerrector") {
+          if (msgs![i]["sender"] == user!.displayName.toString()) {
             return Container(
               padding: EdgeInsets.symmetric(
                 horizontal: 3.0,
