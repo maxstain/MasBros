@@ -70,6 +70,10 @@ class _BodyState extends State<Body> {
                   ),
                   onPressed: () {
                     print("Pressed");
+                    FirebaseFirestore.instance
+                        .collection("Appointments")
+                        .doc(document.id)
+                        .delete();
                   },
                 ),
                 onTap: () {
