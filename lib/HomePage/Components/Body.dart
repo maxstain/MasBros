@@ -1,9 +1,9 @@
-import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:masbros/HomePage/Components/AppointmentCard.dart';
 import 'package:masbros/HomePage/HomePage.dart';
 import 'package:masbros/Resources/Date.dart';
-import 'package:masbros/theme_provider.dart';
 
 class Body extends StatefulWidget {
   Body({Key? key}) : super(key: key);
@@ -18,62 +18,79 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     super.initState();
-    DatabaseReference dbRef = FirebaseDatabase.instance.reference();
-    dbRef.child("appointments").once().then(
-      (DataSnapshot dataSnapshot) {
-        dates!.clear();
-        var keys = dataSnapshot.value.keys;
-        var values = dataSnapshot.value;
-        for (var key in keys) {
-          Date date = new Date(
-            values[key]["Date"],
-            values[key]["Time"],
-          );
-          dates!.add(date);
-        }
-        setState(() {
-          //
-        });
-      },
-    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return dates!.length <= 0
-        ? Center(
-            child: Text(
-              "No Appointments yet",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-          )
-        : RefreshIndicator(
-            displacement: 10,
-            color: Theme.of(context).primaryColor,
-            onRefresh: _refresh,
-            child: ListView.builder(
-              itemCount: dates!.length,
-              itemBuilder: (_, i) {
-                return ListTile(
-                  leading: Icon(
-                    Icons.calendar_today,
-                    color: Colors.pink,
+    return RefreshIndicator(
+      displacement: 10,
+      color: Theme.of(context).primaryColor,
+      onRefresh: _refresh,
+      child: StreamBuilder(
+        stream:
+            FirebaseFirestore.instance.collection("Appointments").snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return Center(
+              child: dates!.length <= 0
+                  ? Text(
+                      "No Appointments yet",
+                      style: TextStyle(
+                        color: Colors.pink,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  : CircularProgressIndicator(),
+            );
+          }
+          return ListView(
+            children: snapshot.data!.docs.map((document) {
+              return ListTile(
+                leading: Icon(
+                  Icons.calendar_today_rounded,
+                  color: Colors.pink,
+                ),
+                title: Text(
+                  document["Date"],
+                  style: TextStyle(
+                    color: Colors.white,
                   ),
-                  title: Text(
-                    dates![i].date.toString(),
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                ),
+                subtitle: Text(
+                  document["Time"],
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                trailing: IconButton(
+                  icon: Icon(
+                    Icons.delete_forever,
+                    color: Colors.red,
+                  ),
+                  onPressed: () {
+                    print("Pressed");
+                  },
+                ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => AppointmentCard(
+                        id: document.id,
+                        date: document["Date"],
+                        time: document["Time"],
+                        maker: document["Maker"],
+                        photo: document["Photo"],
+                      ),
                     ),
-                  ),
-                  subtitle: Text(dates![i].time.toString()),
-                );
-              },
-            ),
+                  );
+                },
+              );
+            }).toList(),
           );
+        },
+      ),
+    );
   }
 
   Future<void> _refresh() {

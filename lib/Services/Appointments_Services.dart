@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,48 +12,22 @@ class AppointmentsService with ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final firestore = FirebaseFirestore.instance;
 
-  Future addAppointment(String date, String time) async {
+  Future addAppointment(
+      String date, String time, String maker, String makerURL) async {
     try {
       setLoading(true);
-      await dbRef.child("appointments").push().set(
+      await firestore.collection("Appointments").add(
         {
           "Date": date,
           "Time": time,
+          "Maker": maker,
+          "Photo": makerURL,
         },
       );
       print("Appointment added");
       setLoading(false);
-    } on SocketException {
-      setLoading(false);
-      setMessage("No Internet connection, please connect to the internet");
-    } catch (e) {
-      setLoading(false);
-      print(e);
-      setMessage(e.toString());
-    }
-    notifyListeners();
-  }
-
-  getAppointment() {
-    try {
-      setLoading(true);
-      /*dbRef.child("appointments").once().then(
-        (DataSnapshot dataSnapshot) {
-          var keys = dataSnapshot.value.keys;
-          var values = dataSnapshot.value;
-          for (var key in keys) {
-            Date date = new Date(
-              values[key]["Date"],
-              values[key]["Time"],
-            );
-            dates!.add(date);
-          }
-        },
-      );
-      print("Appointment Loaded");
-      setLoading(false);
-      return dates;*/
     } on SocketException {
       setLoading(false);
       setMessage("No Internet connection, please connect to the internet");
