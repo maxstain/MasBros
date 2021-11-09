@@ -55,13 +55,17 @@ class _BodyState extends State<Body> {
                 title: Text(
                   document["Date"],
                   style: TextStyle(
-                    color: Colors.white,
+                    color: ThemeMode.system == ThemeData.dark()
+                        ? Colors.white
+                        : Colors.black,
                   ),
                 ),
                 subtitle: Text(
                   document["Time"],
                   style: TextStyle(
-                    color: Colors.white,
+                    color: ThemeMode.system == ThemeData.dark()
+                        ? Colors.white
+                        : Colors.black,
                   ),
                 ),
                 trailing: IconButton(
