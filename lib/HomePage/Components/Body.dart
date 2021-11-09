@@ -24,7 +24,8 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       displacement: 10,
-      color: Theme.of(context).primaryColor,
+      color: Colors.pink,
+      backgroundColor: Colors.white,
       onRefresh: _refresh,
       child: StreamBuilder(
         stream:
