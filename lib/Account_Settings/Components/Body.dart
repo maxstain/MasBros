@@ -31,7 +31,6 @@ class _BodyState extends State<Body> {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 21.0,
-                color: Colors.black54,
               ),
             ),
             trailing: Icon(

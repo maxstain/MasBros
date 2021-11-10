@@ -13,25 +13,43 @@ class AuthenticationService with ChangeNotifier {
   String? get errorMessage => _errorMessage;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-  Future update(String? username, String? email, String? password) async {
+  Future updateUsername(String? username) async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
-      if ((email!.isEmpty) && (password!.isEmpty)) {
+      if (username!.isNotEmpty) {
         await user!.updateDisplayName(username);
         return user;
-      } else if ((username!.isEmpty) && (password!.isEmpty)) {
+      }
+    } on SocketException {
+      setMessage("No Internet connection, please connect to the internet");
+    } catch (e) {
+      print(e);
+      setMessage(e.toString());
+    }
+    notifyListeners();
+  }
+
+  Future updateEmail(String? email) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (email!.isNotEmpty) {
         await user!.updateEmail(email);
-        print("Updated");
         return user;
-      } else if ((email.isEmpty) && (username.isEmpty)) {
-        await user!.updatePassword(password!);
-        print("Updated");
-        return user;
-      } else {
-        await user!.updateDisplayName(username);
-        await user.updateEmail(email);
-        await user.updatePassword(password!);
-        print("Updated");
+      }
+    } on SocketException {
+      setMessage("No Internet connection, please connect to the internet");
+    } catch (e) {
+      print(e);
+      setMessage(e.toString());
+    }
+    notifyListeners();
+  }
+
+  Future updatePassword(String? password) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (password!.isNotEmpty) {
+        await user!.updatePassword(password);
         return user;
       }
     } on SocketException {

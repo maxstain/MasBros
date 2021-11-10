@@ -73,83 +73,125 @@ class _BodyState extends State<Body> {
                 ),
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(top: 20.0, left: 8.0, right: 8.0),
-              child: TextFormField(
-                keyboardType: TextInputType.name,
-                controller: usernameController,
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  labelText: "Username",
-                  prefixIcon: Icon(Icons.account_box_rounded),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(top: 20.0, left: 8.0, right: 8.0),
-              child: TextFormField(
-                keyboardType: TextInputType.emailAddress,
-                controller: emailController,
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  labelText: "Email",
-                  prefixIcon: Icon(Icons.email),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(top: 20.0, left: 8.0, right: 8.0),
-              child: TextFormField(
-                controller: passwordController,
-                obscureText: true,
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  labelText: "Password",
-                  prefixIcon: Icon(Icons.vpn_key),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 8.0,
-                vertical: 20.0,
-              ),
-              child: TextButton(
-                style: ButtonStyle(
-                  padding: MaterialStateProperty.all(
-                    EdgeInsets.symmetric(
-                      vertical: 20.0,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 300.0,
+                  padding: EdgeInsets.only(top: 20.0, left: 8.0, right: 8.0),
+                  child: TextFormField(
+                    keyboardType: TextInputType.name,
+                    controller: usernameController,
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      labelText: "Username",
+                      prefixIcon: Icon(Icons.account_box_rounded),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                   ),
-                  backgroundColor: MaterialStateProperty.all(Colors.pink),
                 ),
-                child: Text(
-                  "Update",
-                  style: TextStyle(
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.pink,
+                  ),
+                  child: IconButton(
+                    icon: Icon(Icons.check),
+                    padding: EdgeInsets.all(8.0),
                     color: Colors.white,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
+                    onPressed: () async {
+                      await updateProvider.updateUsername(
+                        usernameController.text.trim(),
+                      );
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (_) => AuthenticationWrapper()));
+                    },
                   ),
                 ),
-                onPressed: () async {
-                  await updateProvider.update(
-                    usernameController.text.trim(),
-                    emailController.text.trim(),
-                    passwordController.text.trim(),
-                  );
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (_) => AuthenticationWrapper()));
-                },
-              ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 300.0,
+                  padding: EdgeInsets.only(top: 20.0, left: 8.0, right: 8.0),
+                  child: TextFormField(
+                    keyboardType: TextInputType.emailAddress,
+                    controller: usernameController,
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      labelText: "Email",
+                      prefixIcon: Icon(Icons.email),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.pink,
+                  ),
+                  child: IconButton(
+                    icon: Icon(Icons.check),
+                    padding: EdgeInsets.all(8.0),
+                    color: Colors.white,
+                    onPressed: () async {
+                      await updateProvider.updateEmail(
+                        emailController.text.trim(),
+                      );
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (_) => AuthenticationWrapper()));
+                    },
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 300.0,
+                  padding: EdgeInsets.only(top: 20.0, left: 8.0, right: 8.0),
+                  child: TextFormField(
+                    obscureText: true,
+                    controller: passwordController,
+                    textAlign: TextAlign.center,
+                    decoration: InputDecoration(
+                      labelText: "Password",
+                      prefixIcon: Icon(Icons.vpn_key_rounded),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.pink,
+                  ),
+                  child: IconButton(
+                    icon: Icon(Icons.check),
+                    padding: EdgeInsets.all(8.0),
+                    color: Colors.white,
+                    onPressed: () async {
+                      await updateProvider.updatePassword(
+                        passwordController.text.trim(),
+                      );
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (_) => AuthenticationWrapper()));
+                    },
+                  ),
+                ),
+              ],
             ),
           ],
         ),

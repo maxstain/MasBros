@@ -54,19 +54,9 @@ class _BodyState extends State<Body> {
                 ),
                 title: Text(
                   document["Date"],
-                  style: TextStyle(
-                    color: ThemeMode.system == ThemeData.dark()
-                        ? Colors.white
-                        : Colors.black,
-                  ),
                 ),
                 subtitle: Text(
                   document["Time"],
-                  style: TextStyle(
-                    color: ThemeMode.system == ThemeData.dark()
-                        ? Colors.white
-                        : Colors.black,
-                  ),
                 ),
                 trailing: IconButton(
                   icon: Icon(
