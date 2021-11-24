@@ -22,7 +22,7 @@ class _ChatPageState extends State<ChatPage> {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection("Chat")
-            .orderBy("time")
+            .orderBy("datetime")
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
@@ -151,6 +151,7 @@ class _ChatPageState extends State<ChatPage> {
             setState(() {
               FirebaseFirestore.instance.collection("Chat").add({
                 "msg": chatController.value.text,
+                "datetime": DateTime.now().toUtc(),
                 "time": TimeOfDay.now().format(context),
                 "sender": user!.displayName.toString(),
                 "img": user!.photoURL,
