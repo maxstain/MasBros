@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class Body extends StatelessWidget {
   List? msgs = [];
-  Body({Key? key, List? this.msgs}) : super(key: key);
+  Body({Key? key, this.msgs}) : super(key: key);
   User? user = FirebaseAuth.instance.currentUser;
 
   @override
