@@ -27,8 +27,9 @@ class AppointmentCard extends StatelessWidget {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(
-                top: 10.0,
+              padding: EdgeInsets.symmetric(
+                vertical: 10.0,
+                horizontal: 8.0,
               ),
               child: Column(
                 children: [
