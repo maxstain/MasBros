@@ -14,8 +14,8 @@ class AppointmentsService with ChangeNotifier {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final firestore = FirebaseFirestore.instance;
 
-  Future addAppointment(
-      String date, String time, String maker, String makerURL) async {
+  Future addAppointment(String date, String time, String maker, String makerURL,
+      DateTime datetime) async {
     try {
       setLoading(true);
       await firestore.collection("Appointments").add(
@@ -24,6 +24,7 @@ class AppointmentsService with ChangeNotifier {
           "Time": time,
           "Maker": maker,
           "Photo": makerURL,
+          "dateTime": datetime,
         },
       );
       print("Appointment added");

@@ -28,8 +28,10 @@ class _BodyState extends State<Body> {
       backgroundColor: Colors.white,
       onRefresh: _refresh,
       child: StreamBuilder(
-        stream:
-            FirebaseFirestore.instance.collection("Appointments").snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection("Appointments")
+            .orderBy("dateTime")
+            .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
             return Center(
@@ -49,11 +51,9 @@ class _BodyState extends State<Body> {
             children: snapshot.data!.docs.map((document) {
               var date = document["Date"].toString().split("-");
               print(date);
-              var time = document["Time"].toString().split(":");
-              print(time);
               if (int.parse(date[2]) < DateTime.now().toLocal().day) {
-                if (int.parse(date[1]) == DateTime.now().toLocal().month) {
-                  if (int.parse(date[0]) == DateTime.now().toLocal().year) {
+                if (int.parse(date[1]) <= DateTime.now().toLocal().month) {
+                  if (int.parse(date[0]) <= DateTime.now().toLocal().year) {
                     FirebaseFirestore.instance
                         .collection("Appointments")
                         .doc(document.id)

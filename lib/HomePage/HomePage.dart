@@ -146,6 +146,7 @@ class _HomePageState extends State<HomePage> {
                 _timeOfDay!.format(context).toString(),
                 user.displayName.toString(),
                 user.photoURL.toString(),
+                DateTime.now().toUtc(),
               );
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (_) => AuthenticationWrapper()));
