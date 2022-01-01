@@ -47,6 +47,12 @@ class _BodyState extends State<Body> {
           }
           return ListView(
             children: snapshot.data!.docs.map((document) {
+              if (document["Date"] == DateTime.now().toUtc()) {
+                FirebaseFirestore.instance
+                    .collection("Appointments")
+                    .doc(document.id)
+                    .delete();
+              }
               return ListTile(
                 leading: Icon(
                   Icons.calendar_today_rounded,
