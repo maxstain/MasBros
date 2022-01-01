@@ -47,12 +47,19 @@ class _BodyState extends State<Body> {
           }
           return ListView(
             children: snapshot.data!.docs.map((document) {
-              if (document["Date"] == DateTime.now().toUtc()) {
-                FirebaseFirestore.instance
-                    .collection("Appointments")
-                    .doc(document.id)
-                    .delete();
+              var date = document["Date"].toString().split("-");
+              var time = document["Time"].toString().split(":");
+              if (int.parse(date[2]) <= DateTime.now().toLocal().day) {
+                if (int.parse(date[1]) == DateTime.now().toLocal().month) {
+                  if (int.parse(date[0]) == DateTime.now().toLocal().year) {
+                    FirebaseFirestore.instance
+                        .collection("Appointments")
+                        .doc(document.id)
+                        .delete();
+                  }
+                }
               }
+              print("There are ${snapshot.data!.docs.length} appointments");
               return ListTile(
                 leading: Icon(
                   Icons.calendar_today_rounded,
