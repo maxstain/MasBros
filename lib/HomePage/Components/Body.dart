@@ -48,8 +48,10 @@ class _BodyState extends State<Body> {
           return ListView(
             children: snapshot.data!.docs.map((document) {
               var date = document["Date"].toString().split("-");
+              print(date);
               var time = document["Time"].toString().split(":");
-              if (int.parse(date[2]) <= DateTime.now().toLocal().day) {
+              print(time);
+              if (int.parse(date[2]) < DateTime.now().toLocal().day) {
                 if (int.parse(date[1]) == DateTime.now().toLocal().month) {
                   if (int.parse(date[0]) == DateTime.now().toLocal().year) {
                     FirebaseFirestore.instance
