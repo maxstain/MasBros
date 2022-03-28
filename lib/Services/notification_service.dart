@@ -48,7 +48,6 @@ class NotificationService {
         android: AndroidNotificationDetails(
           'main_channel',
           'Main Channel',
-          'Main Channel Notifications',
           importance: Importance.max,
           priority: Priority.max,
           icon: 'ic_flutter_notification',
